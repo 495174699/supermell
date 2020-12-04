@@ -1,0 +1,58 @@
+@import './normalize.css';
+
+/*:root -> 鑾峰彇鏍瑰厓绱爃tml*/
+
+:root {
+    --color-text: #666;
+    --color-high-text: #ff5777;
+    --color-tint: #ff8198;
+    --color-background: #fff;
+    --font-size: 14px;
+    --line-height: 1.5;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "寰蒋闆呴粦", Arial, sans-serif;
+    user-select: none;
+    /* 绂佹鐢ㄦ埛榧犳爣鍦ㄩ〉闈笂閫変腑鏂囧瓧/鍥剧墖绛?*/
+    -webkit-tap-highlight-color: transparent;
+    /* webkit鏄嫻鏋滄祻瑙堝櫒寮曟搸锛宼ap鐐瑰嚮锛宧ighlight鑳屾櫙楂樹寒锛宑olor棰滆壊锛岄鑹茬敤鏁板€艰皟鑺?*/
+    background: var(--color-background);
+    color: var(--color-text);
+    /* rem vw/vh */
+    width: 100vw;
+}
+
+a {
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.clear-fix::after {
+    clear: both;
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+.clear-fix {
+    zoom: 1;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
