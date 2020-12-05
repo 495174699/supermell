@@ -118,7 +118,7 @@ import HomeSwiper from './childComps/homeSwiper'
 import homerecommond from './childComps/homerecommond'
 import feauture from './childComps/feauture'
 import TabControl from '../../components/content/tabcontrol/TavControl'
-import {getHomeMultidata} from '../../network/home'
+import {getHomeMultidata,getHomeGoods} from '../../network/home'
 
 export default {
   name:'home',
@@ -134,21 +134,39 @@ export default {
     return {
       banners:[],
       recommends:[],
-      arr:[1,2,3]
+      arr:[1,2,3],
+      goods: {
+        'pop':{page:0,list:[]},
+        'new':{page:0,list:[]},
+        'sell':{page:0,list:[]},
+      }
     }
   },
   created() {
-    getHomeMultidata().then(res => {
-  //  this.result = res
-  // console.log(res);
-  // console.log(res.data.data);
-  console.log(res.data.data.banner.list);
-  console.log(res.data.data.recommend.list);
-  this.banners =res.data.data.banner.list
-  this.recommends = res.data.data.recommend.list
-}).catch(err => {
-    console.log(err);
-})
+  this.getHomeMultidata()
+  this.getHomeGoods('pop')
+  this.getHomeGoods('new')
+  this.getHomeGoods('sell')
+  },
+
+  methods:{
+    getHomeMultidata() {
+       getHomeMultidata().then(res => {
+        this.banners =res.data.data.banner.list
+         this.recommends = res.data.data.recommend.list
+        //  console.log(11);
+         }).catch(err => console.log(err))
+    },
+    getHomeGoods (type) {
+      const page = this.goods[type].page+1
+      getHomeGoods(type,page).then(res => {
+      this.goods[type].list.push(...res.data.data.list)
+      this.goods[type].page+=1
+      console.log(res);
+
+        })
+    }
+    
   }
 }
 </script>

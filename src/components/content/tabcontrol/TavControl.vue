@@ -1,6 +1,6 @@
 <template>
   <div class="tab-cnotrol">
-      <div v-for="(item,index) in title" class="tab-control-item" :class="{active:index == count}">
+      <div v-for="(item,index) in title" class="tab-control-item" :class="{active:index == count}" @click="itemclick(index)">
           <span>
               {{item}}
           </span>
@@ -22,6 +22,11 @@ export default {
     data() {
         return {
             count:0
+        }
+    },
+    methods:{
+        itemclick(index) {
+            this.count = index
         }
     }
 }
