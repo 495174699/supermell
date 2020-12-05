@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <slot></slot>
+  <div class="feauture">
+   <a href="https://www.bilibili.com/">
+   <img src="../../../assets/img/home/recommend_bg.jpg" alt=""></a>
   </div>
 </template>
 
@@ -11,5 +12,7 @@ export default {
 </script>
 
 <style>
-
+ .feauture img {
+   width: 320px;
+ }
 </style>
