@@ -39,6 +39,10 @@ export default {
     line-height: 40px;
     font-size: 15px;
     text-align: center;
+       position: sticky;
+    top:40px;
+    z-index: 9;
+    background-color: wheat;
 }
 .tab-control-item {
     flex: 1;
