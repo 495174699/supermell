@@ -25,7 +25,7 @@ export default {
 
 <style>
     .recommond {
-        width: 320px;
+        width: 100%;
         display: flex;
         padding: 10px 0 20px;
         border-bottom: 10px solid #ccc;

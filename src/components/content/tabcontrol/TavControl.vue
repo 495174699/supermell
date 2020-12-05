@@ -27,6 +27,7 @@ export default {
     methods:{
         itemclick(index) {
             this.count = index
+            this.$emit('t-c-click',index)
         }
     }
 }

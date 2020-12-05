@@ -1,7 +1,7 @@
 <template>
     <div class="goods">
-        <goods-list-item v-for="item in goods" :goodsitem="item">
-            {{item}}
+        <goods-list-item v-for='item in goods' :goodsitem="item">
+            <!-- {{item}} -->
         </goods-list-item>
         <!-- {{goods}} -->
     </div>
@@ -22,7 +22,6 @@ export default {
     },
     components: {
         GoodsListItem
-
     }
 }
 </script>

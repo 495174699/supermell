@@ -6,8 +6,8 @@
     <home-swiper :banners="banners"></home-swiper>
     <homerecommond :recommond='recommends'></homerecommond>
     <feauture/>
-    <tab-control :title="['流行','新款','精品']"></tab-control>
-    <goods-list :goods="goods['pop'].list">
+    <tab-control :title="['流行','新款','精品']" @t-c-click='tabclick'></tab-control>
+    <goods-list :goods="show">
         <!-- <good-list-item></good-list-item> -->
     </goods-list>
   </div>
@@ -45,7 +45,8 @@ export default {
         'pop':{page:0,list:[]},
         'new':{page:0,list:[]},
         'sell':{page:0,list:[]},
-      }
+      },
+      counttype:'pop'
     }
   },
   created() {
@@ -56,6 +57,20 @@ export default {
   },
 
   methods:{
+    tabclick(index) {
+      switch(index) {
+        case 0 :
+          this.counttype = 'pop'
+          break
+        case 1 :
+          this.counttype = 'new'
+          break
+        case 2 :
+          this.counttype = 'sell'
+          break
+      }
+    },
+
     getHomeMultidata() {
        getHomeMultidata().then(res => {
         this.banners =res.data.data.banner.list
@@ -69,10 +84,14 @@ export default {
       this.goods[type].list.push(...res.data.data.list)
       this.goods[type].page+=1
       console.log(res);
-
         })
     }
     
+  },
+  computed: {
+    show() {
+      return this.goods[this.counttype].list
+    }
   }
 }
 </script>
@@ -90,7 +109,5 @@ export default {
    background-color: pink;
    color: #fff;
  }
-  .tab-control{
- 
-  }
+
 </style>

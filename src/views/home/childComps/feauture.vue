@@ -13,6 +13,7 @@ export default {
 
 <style>
  .feauture img {
-   width: 320px;
+   /* width: 320px; */
+   width: 100%;;
  }
 </style>

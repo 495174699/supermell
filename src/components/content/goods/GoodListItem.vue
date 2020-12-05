@@ -7,7 +7,6 @@
         </div>
         <p>
         <span class="price">{{goodsitem.price}}$/</span>
-        
         <span class="collect">{{goodsitem.cfav}}❤</span>
         </p>
         </a>
