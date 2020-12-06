@@ -7,8 +7,9 @@
          <slot name="item-icon-active"></slot>
     </div>
    <div :style='activestyle'> 
-       <slot name="item-text" ></slot></div>
+       <slot name="item-text" ></slot>
     </div>
+</div>
 </template>
 
 <script>
