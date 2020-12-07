@@ -3,16 +3,18 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
+    <tab-control :title="['流行','新款','精品']" @t-c-click='tabclick' ref="img" v-show="istabshow" class="tabfixed"></tab-control>
    <scroll class="content"
    ref='srcoll' 
    :probe-type='3'
     @scroll="contscroll"
     :pull-up-load='true'
-    @pullingUp='loadMore'> 
-    <home-swiper :banners="banners"></home-swiper>
+    @pullingUp='loadMore'
+    @tabcontrolfix='tabcontrolfix'> 
+    <home-swiper :banners="banners" @imgload='imgload' ></home-swiper>
     <homerecommond :recommond='recommends'></homerecommond>
     <feauture/>
-    <tab-control :title="['流行','新款','精品']" @t-c-click='tabclick'></tab-control>
+    <tab-control :title="['流行','新款','精品']" @t-c-click='tabclick' ref="img" ></tab-control>
     <goods-list :goods="show">
       <!-- <good-list-item></good-list-item> -->
     </goods-list>
@@ -34,7 +36,7 @@ import {getHomeMultidata,getHomeGoods} from '../../network/home'
 import GoodListItem from '../../components/content/goods/GoodListItem.vue'
 import scroll from '../../components/common/srcoll/srcoll'
 import BackTop from '../../components/content/backtop/BackTop'
-
+import {debunce} from '../../components/common/utiles'
 
 export default {
   name:'home',
@@ -62,7 +64,9 @@ export default {
         
       },
       counttype:'pop',
-      isshow:false
+      isshow:false,
+      tabcontrol:0,
+      istabshow:false
     }
   },
   created() {
@@ -70,8 +74,17 @@ export default {
   this.getHomeGoods('pop')
   this.getHomeGoods('new')
   this.getHomeGoods('sell')
+  //监听事件总线发送过来的方法
+   
   },
+  mounted() {
+    const refresh = debunce(this.$refs.srcoll.refresh,150)
+   this.$bus.$on('load',() => {
 
+     refresh()
+      
+    })
+  },
   methods:{
     tabclick(index) {
       switch(index) {
@@ -116,9 +129,20 @@ export default {
     },
     loadMore() {
       this.getHomeGoods(this.counttype)
-      console.log(11);
+      // console.log(11);
+    },
+    imgload() {
+      // console.log(11);
+        this.tabcontrol = this.$refs.img.$el.offsetTop
+     
+    },
+    tabcontrolfix(y) {
+      if(y >= this.tabcontrol) {
+        this.istabshow = true
+      }else {
+         this.istabshow = false
+      }
     }
-    
   },
   computed: {
     show() {
@@ -130,15 +154,15 @@ export default {
 
 <style scoped> 
 #home {
-  padding-top: 44px;
+  /* padding-top: 44px; */
   height: 100vh;
 }
  .home-nav {
-   position: fixed;
+   /* position: fixed;
    top: 0;
    left: 0;
    right: 0;
-    z-index: 1;
+    z-index: 1; */
    background-color: pink;
    color: #fff;
  }
@@ -146,5 +170,8 @@ export default {
     /* height: 300px; */
     height: 473px;
     overflow: hidden;
+}
+.tabfixed {
+  position: absolute;
 }
 </style>

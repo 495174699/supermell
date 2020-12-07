@@ -40,8 +40,9 @@ export default {
     line-height: 40px;
     font-size: 15px;
     text-align: center;
-    position: sticky;
     top:40px;
+    left: 0;
+    right: 0;
     z-index: 9;
     background-color: wheat;
 }

@@ -37,14 +37,19 @@ export default {
             // 加载
             pullUpLoad:this.pullUpLoad
         })
+        // 实时监听滚动
         this.scroll.on('scroll',option => {
-            // console.log(option);
+            // console.log(option.y);
             this.$emit('scroll',option)
+            this.$emit('tabcontrolfix',-option.y)
         })
         // 上拉加载更多  pullingup事件
+        // if(pullUpLoad) {
         this.scroll.on('pullingUp',() => {
          this.$emit('pullingUp')
         })
+        // }
+        
     },
     methods:{
         scrollto(x,y,time=500) {
@@ -53,7 +58,11 @@ export default {
         finishPullUp() {
             this.scroll.finishPullUp()
             // console.log(11);
-        }
+        },
+        refresh() {
+            // console.log(11);
+            this.scroll.refresh()
+    }
     }
 }
 </script>

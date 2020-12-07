@@ -1,7 +1,8 @@
 <template>
-  <div class="goods-item">
+  <div class="goods-item" >
       <a :href="goodsitem.link">
-      <img :src="goodsitem.show.img" alt="">
+          <!-- @load 可以监听图片的加载比原生的img.onload = () => {} -->
+      <img :src="goodsitem.show.img" alt="" @load='onload'>
         <div>
             <p>{{goodsitem.title}}</p>
         </div>
@@ -24,6 +25,13 @@ export default {
             default() {
                 return {}
             }
+        }
+    },
+    methods: {
+        // 利用事件总线发送方法 
+        onload() {
+           this.$bus.$emit('load')
+        //    console.log(11);
         }
     }
 }
