@@ -11,7 +11,8 @@ const catagory = () =>
     import ('../views/catagory/catagory.vue')
 const profile = () =>
     import ('../views/profile/pofile.vue')
-
+const detail = () =>
+    import ('../views/detail/Detail.vue')
 
 const routes = [{
         path: '',
@@ -33,6 +34,11 @@ const routes = [{
     {
         path: '/profile',
         component: profile
+    },
+
+    {
+        path: '/detail/:iid',
+        component: detail
     }
 ]
 

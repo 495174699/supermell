@@ -62,6 +62,9 @@ export default {
         refresh() {
             // console.log(11);
             this.scroll.refresh()
+    },
+    gety() {
+        return this.scroll ? this.scroll.y : 0
     }
     }
 }

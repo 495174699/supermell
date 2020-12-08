@@ -3,7 +3,7 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
-    <tab-control :title="['流行','新款','精品']" @t-c-click='tabclick' ref="img" v-show="istabshow" class="tabfixed"></tab-control>
+    <tab-control :title="['流行','新款','精品']" @t-c-click='tabclick' ref="img1" v-show="istabshow" class="tabfixed"></tab-control>
    <scroll class="content"
    ref='srcoll' 
    :probe-type='3'
@@ -14,7 +14,7 @@
     <home-swiper :banners="banners" @imgload='imgload' ></home-swiper>
     <homerecommond :recommond='recommends'></homerecommond>
     <feauture/>
-    <tab-control :title="['流行','新款','精品']" @t-c-click='tabclick' ref="img" ></tab-control>
+    <tab-control :title="['流行','新款','精品']" @t-c-click='tabclick' ref="img2" ></tab-control>
     <goods-list :goods="show">
       <!-- <good-list-item></good-list-item> -->
     </goods-list>
@@ -66,25 +66,37 @@ export default {
       counttype:'pop',
       isshow:false,
       tabcontrol:0,
-      istabshow:false
+      istabshow:false,
+      savey:0
     }
   },
-  created() {
-  this.getHomeMultidata()
-  this.getHomeGoods('pop')
-  this.getHomeGoods('new')
-  this.getHomeGoods('sell')
-  //监听事件总线发送过来的方法
-   
-  },
+ 
   mounted() {
-    const refresh = debunce(this.$refs.srcoll.refresh,150)
+  const refresh = debunce(this.$refs.srcoll.refresh,150)
+  //监听事件总线发送过来的方法
    this.$bus.$on('load',() => {
-
      refresh()
-      
     })
   },
+   created() {
+      this.getHomeMultidata()
+      this.getHomeGoods('pop')
+      this.getHomeGoods('new')
+      this.getHomeGoods('sell')
+    },
+      // 生命周期函数
+    destroyed(){ 
+      console.log('销毁了')
+      this.savey = 1000
+    },
+    activated() {
+      this.$refs.srcoll.scrollto(0,this.savey,0)
+      console.log('4444');
+      this.$refs.srcoll.refresh()
+   },
+   deactivated() {
+      this.savey = this.$refs.srcoll.gety()
+   },
   methods:{
     tabclick(index) {
       switch(index) {
@@ -98,6 +110,8 @@ export default {
           this.counttype = 'sell'
           break
       }
+      this.$refs.img2.count = index
+      this.$refs.img1.count = index
     },
    topclick() {
      this.$refs.srcoll.scrollto(0,0)
@@ -133,7 +147,7 @@ export default {
     },
     imgload() {
       // console.log(11);
-        this.tabcontrol = this.$refs.img.$el.offsetTop
+        this.tabcontrol = this.$refs.img2.$el.offsetTop
      
     },
     tabcontrolfix(y) {
@@ -148,7 +162,8 @@ export default {
     show() {
       return this.goods[this.counttype].list
     }
-  }
+  },
+ 
 }
 </script>
 

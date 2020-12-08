@@ -119,14 +119,11 @@ export default {
           probeType:3,
           pullUpLoad:true
       })
-       this.scroll.on('scroll', lo => {
-        console.log(lo);
+       this.scroll.on('scroll', postion => {
+        console.log(postion);
       })
       this.scroll.on('pullingUp',() => {
-        console.log('121111111111111111111111111111')
-        setTimeout(() => {
-         
-        },2000)
+       
       })
     }
 }
@@ -136,7 +133,7 @@ export default {
 .wrapper {
   width: 100%;
   height: 150px;
-  background-color: red;
+  background-color: blue;
   overflow: hidden;
 }
 </style>

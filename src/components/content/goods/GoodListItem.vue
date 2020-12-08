@@ -1,6 +1,6 @@
 <template>
-  <div class="goods-item" >
-      <a :href="goodsitem.link">
+  <div class="goods-item"  @click="itemClick">
+      <!-- <a :href="goodsitem.link"> -->
           <!-- @load 可以监听图片的加载比原生的img.onload = () => {} -->
       <img :src="goodsitem.show.img" alt="" @load='onload'>
         <div>
@@ -10,7 +10,7 @@
         <span class="price">{{goodsitem.price}}$/</span>
         <span class="collect">{{goodsitem.cfav}}❤</span>
         </p>
-        </a>
+        <!-- </a> -->
   </div>
   
 </template>
@@ -32,6 +32,10 @@ export default {
         onload() {
            this.$bus.$emit('load')
         //    console.log(11);
+        },
+        itemClick() {
+            this.$router.push('/detail/'+this.goodsitem.iid)
+            console.log(11);
         }
     }
 }
