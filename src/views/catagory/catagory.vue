@@ -133,7 +133,7 @@ export default {
 .wrapper {
   width: 100%;
   height: 150px;
-  background-color: blue;
+  /* background-color: blue; */
   overflow: hidden;
 }
 </style>

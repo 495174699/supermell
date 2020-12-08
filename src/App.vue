@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <keep-alive>
+    <!-- 这里excude='name' 用的是我们组建导出是指定的名字 这里要仔细.否组bug很难发现 -->
+    <keep-alive exclude="detail">
        <router-view/>
     </keep-alive>
    

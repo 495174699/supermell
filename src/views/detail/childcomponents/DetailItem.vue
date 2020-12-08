@@ -1,14 +1,13 @@
 <template>
   <div>
     <nav-bar>
-      <div slot="left" class="left">
+      <div slot="left" class="left" @click="imgClick">
         <img src="../../../assets/img/common/back.svg" alt="">
       </div>
       <div slot="center" class="center">
-      <span>商品</span>
-      <span>参数</span>
-      <span>评论</span>
-      <span>推荐</span>
+        <div class="detail-item" v-for="(item,index) in titile" @click="itemClick(index)" :class="{active:index == count}">
+          {{item}}
+          </div>
       </div>  
     </nav-bar>
   </div>
@@ -18,6 +17,20 @@
 import NavBar from '../../../components/common/navbar/NavBar'
 export default {
     name:'detailitem',
+    data() {
+      return{
+       titile:  ['商品','参数','评论','推荐'],
+       count:0
+      }
+    },
+    methods:{
+      imgClick() {
+        this.$router.back()
+      },
+      itemClick(index) {
+        this.count = index
+      }
+    },
     components:{
     NavBar
     }
@@ -31,12 +44,10 @@ export default {
   .center {
     display: flex;
   }
-  .center span {
-    width: 40px;
-  /* height: 25px; */
-  text-align: center;
-  margin: 0 2px;
-  font-size: 14px; 
-   /* background-color: blue; */
-  }
+.detail-item {
+  flex: 1;
+}
+.active{
+  color: red;
+}
 </style>
