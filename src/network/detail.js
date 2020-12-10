@@ -20,6 +20,7 @@ export class all {
             this.realPrice = itemlInfo.lowNowPrice
     }
 }
+
 export class logo {
     constructor(shopInfo) {
         this.shopLogo = shopInfo.shopLogo

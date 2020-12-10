@@ -1,7 +1,9 @@
 <template>
    <div v-if="Object.keys(logodata).length !== 0">
+
        <h3>商家信息:</h3>
        <hr>
+
       <div class="logo">
           <span>
                <a :href="logodata.shopUrl"><img :src="logodata.shopLogo" alt="" ></a>
@@ -10,7 +12,8 @@
               {{logodata.name}}
           </span>
       </div>
-    <div class="content">
+
+      <div class="content">
         <div class="left">
              <p>{{logodata.cSells}} <br> 总销量</p>
         </div>
@@ -23,44 +26,7 @@
                  {{item.score}}
              </li>
         </div>
-        <!-- <span class="left">
-            <p>{{logodata.cSells}}</p>
-            <p>总销量</p>
-        </span>
-         <span class="left">
-            <p>{{logodata.cGoods}}</p>
-            <p>全部宝贝</p>
-        </span>
-        
-        <span class="right">
-            <ul>
-                <li></li>
-            </ul>
-        </span> -->
-    </div>
-
-      <ul>
-          <li>kkkk</li>
-          <li>kkkk</li>
-          <li>kkkk</li>
-          <li>kkkk</li>
-          <li>kkkk</li>
-          <li>kkkk</li>
-          <li>kkkk</li>
-          <li>kkkk</li>
-          <li>kkkk</li>
-          <li>kkkk</li>
-          <li>kkkk</li>
-          <li>kkkk</li>
-          <li>kkkk</li>
-          <li>kkkk</li>
-          <li>kkkk</li>
-          <li>kkkk</li>
-          <li>kkkk</li>
-          <li>kkkk</li>
-          <li>kkkk</li>
-          <li>kkkk</li>
-      </ul>
+      </div>
    </div>
 </template>
 
@@ -73,15 +39,15 @@ export default {
             default() {
                 return {}
             }
-        }
+        },
     },
     created() {
-        console.log(this.logodata);
+        console.log(this.logodata.shopUrl);
     }
 }
 </script>
 
-<style>
+<style  scoped>
 .logo img {
     border-radius: 50%;
     /* 图片与文字对其方式 */
@@ -111,5 +77,10 @@ export default {
 .logo-right {
     text-align: center;
     margin-left: 15px;
+}
+.canshu {
+    width: 100%;
+    height: 400px;
+    border: 1px solid red;
 } 
 </style>

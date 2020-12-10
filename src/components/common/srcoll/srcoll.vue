@@ -70,6 +70,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+/* .content {
+    height: 1000px;
+} */
 </style>
