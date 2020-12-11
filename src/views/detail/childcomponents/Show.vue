@@ -1,6 +1,6 @@
 <template>
-  <div class="show" v-if="Object.keys(detailInfo) !== 0">
-      <span>{{detailInfo.detailImage[0].key}}</span>
+  <div class="show" v-if="Object.keys(detailInfo).length !== 0">
+      <span class="title">{{detailInfo.detailImage[0].key}}:</span>
       <div class="content">
           <img v-for="item in detailInfo.detailImage[0].list" :src="item" alt="">
       </div>
@@ -30,6 +30,14 @@ props:{
          width: 100%;
          height: 350px;
          margin-bottom: 5px;
+     }
+     .title {
+         display: block;
+         font-size: 20px;
+         color: black;
+         font-weight: 700;
+         width: 100vw;
+          border-bottom: 1px solid black;
      }
 </style>>
 

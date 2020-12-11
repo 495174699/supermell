@@ -1,5 +1,5 @@
 <template>
-  <div id="param-info" v-if="Object.keys(itemParams) !== 0">
+  <div id="param-info" v-if="Object.keys(itemParams).length !== 0">
         <table v-for="(table,index) in itemParams.rule.tables" :key="index"  cellpadding="0" cellspacing="0" >
             <tr v-for="(info,indey) in table" :key="indey">
                 <td v-for="item in info">{{item}}</td>

@@ -32,3 +32,11 @@ export class logo {
         this.shopUrl = shopInfo.shopUrl
     }
 }
+export function getRecommend() {
+    return request({
+        url: '/recommend',
+        params: {
+
+        }
+    })
+}

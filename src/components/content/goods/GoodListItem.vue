@@ -2,7 +2,7 @@
   <div class="goods-item"  @click="itemClick">
       <!-- <a :href="goodsitem.link"> -->
           <!-- @load 可以监听图片的加载比原生的img.onload = () => {} -->
-      <img :src="goodsitem.show.img" alt="" @load='onload'>
+      <img :src="showImage" alt="" @load='onload'>
         <div>
             <p>{{goodsitem.title}}</p>
         </div>
@@ -27,6 +27,20 @@ export default {
             }
         }
     },
+    computed:{
+        showImage() {
+            return this.goodsitem.image || this.goodsitem.show.img
+        },
+        showa() {
+           if(this.goodsitem.iid ) {
+               return  this.$router.push('/detail/'+this.goodsitem.iid) 
+           }
+           else {
+               return  this.$router.replace('http:///www.baidu.com')
+              
+           }
+        }
+    },  
     methods: {
         // 利用事件总线发送方法 
         onload() {
@@ -34,7 +48,9 @@ export default {
         //    console.log(11);
         },
         itemClick() {
-            this.$router.push('/detail/'+this.goodsitem.iid)
+            // this.$router.push('/detail/'+this.goodsitem.iid)
+            // this.$router.push(this.showa)
+            this.showa
             console.log(11);
         }
     }

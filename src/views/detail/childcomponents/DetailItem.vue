@@ -26,9 +26,11 @@ export default {
     methods:{
       imgClick() {
         this.$router.back()
+        // this.$router.go(-1)
       },
       itemClick(index) {
-        this.count = index
+        this.count = index,
+        this.$emit('titleClick',index)
       }
     },
     components:{

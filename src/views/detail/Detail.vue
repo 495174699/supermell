@@ -1,21 +1,24 @@
 <template>
-  <srcoll id="detali-srcoll">
-  <div id="detail">
-   <detail-item class="fix"></detail-item>
+ <div id="detail">
+   <detail-item class="fix" @titleClick="titleClick"></detail-item>
+  <srcoll id="detali-srcoll" ref="scroll">
   <detail-swiper :topimages='topimages' class="detail-swiper"> </detail-swiper>
   <detail-base-info :all='all'></detail-base-info>
   <logos :logodata='logodata'></logos>
   <show :detailInfo='detailInfo'></show>
-  <detail-item-params  :itemParams='itemParams'></detail-item-params>
-  <detail-ping-lun :rate='rate'></detail-ping-lun>
-  </div>
-</srcoll>
+  <detail-item-params ref="params" :itemParams='itemParams'></detail-item-params>
+  <detail-ping-lun ref="pinglun" :rate='rate'></detail-ping-lun>
+  <hr>
+  <goods-list ref="list" :goods='recommends'> 
+  </goods-list>
+</srcoll> 
+</div>
 </template>
 
 <script>
 // import NavBar from '../../components/common/navbar/NavBar'
 import DetailItem from './childcomponents/DetailItem'
-import {getHomeMultidata,all,logo} from '../../network/detail'
+import {getHomeMultidata,all,logo,getRecommend} from '../../network/detail'
 import DetailSwiper from './childcomponents/DetailSwiper'
 import detailBaseInfo from './childcomponents/DetailBaseInfo'
 import logos from './childcomponents/logo'
@@ -23,6 +26,7 @@ import srcoll from '../../components/common/srcoll/srcoll'
 import DetailItemParams from './childcomponents/DetailItemParams'
 import DetailPingLun from './childcomponents/DetailPingLun'
 import Show from './childcomponents/Show.vue'
+import GoodsList from '../../components/content/goods/GoodsList'
 export default {  
     name:'detail',
     data() {
@@ -33,10 +37,26 @@ export default {
          logodata:{},
          itemParams:{},
          rate:{},
-         detailInfo:{}
+         detailInfo:{},
+         recommends:[],
+         themeTopYs:[]
       }
     },
     methods:{
+     titleClick(index) {
+       console.log(index);
+       this.$refs.scroll.scrollto(0,-this.themeTopYs[index],1000)
+     }
+    },
+    updated() {
+      this.themeTopYs = []
+      this.themeTopYs.push(0)
+      console.log(this.$refs.params.$el.offsetTop);
+      this.themeTopYs.push(this.$refs.params.$el.offsetTop)
+      this.themeTopYs.push(this.$refs.pinglun.$el.offsetTop)
+      this.themeTopYs.push(this.$refs.list.$el.offsetTop)
+    },
+    mounted() {
      
     },
     components: {
@@ -47,11 +67,14 @@ export default {
       srcoll,
       DetailItemParams,
       DetailPingLun,
-      Show
+      Show,
+      GoodsList
     },
    created() {
     console.log(333333);
+    //获取iid
      this.iid =  this.$route.params.iid
+      // 请求详情数据
      getHomeMultidata(this.iid).then(res => {
       console.log(res);
       this.topimages = res.data.result.itemInfo.topImages
@@ -62,6 +85,11 @@ export default {
       console.log(this.itemParams);
       this.rate = res.data.result.rate
      })
+      // 请求推荐数据
+      getRecommend().then(res => {
+        console.log(res);
+        this.recommends = res.data.data.list
+      })
     }
 }
 </script>
@@ -72,8 +100,10 @@ export default {
 }
 #detail {
   /* height: 100vh; */
+  position: relative;
+  z-index: 99;
   background-color: #fff;
-  /* padding-top: 44px; */
+  padding-top: 44px;
 }
 #detali-srcoll {
   position: relative;
@@ -87,5 +117,8 @@ export default {
   position: fixed;
   z-index: 2;
   background-color: #fff;
+}
+hr{
+  background-color: black;
 }
 </style>

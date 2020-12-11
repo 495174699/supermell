@@ -1,8 +1,7 @@
 <template>
    <div v-if="Object.keys(logodata).length !== 0">
 
-       <h3>商家信息:</h3>
-       <hr>
+       <h3 class="title">商家信息:</h3>
 
       <div class="logo">
           <span>
@@ -63,6 +62,11 @@ export default {
     height: 100px;
     /* border: 1px solid red; */
 } 
+.title {
+    /* font-weight: 700; */
+    color: black;
+    border-bottom: 1px solid black;
+}
 .left {
     padding-top: 30px;
     text-align: center;
