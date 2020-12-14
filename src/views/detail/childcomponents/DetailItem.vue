@@ -31,6 +31,7 @@ export default {
       itemClick(index) {
         this.count = index,
         this.$emit('titleClick',index)
+        console.log(1);
       }
     },
     components:{

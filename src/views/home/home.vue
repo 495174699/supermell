@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav">
-      <div slot="center">购物街</div>
+      <div slot="center" >购物街</div>
     </nav-bar>
     <tab-control :title="['流行','新款','精品']" @t-c-click='tabclick' ref="img1" v-show="istabshow" class="tabfixed"></tab-control>
    <scroll class="content"
@@ -186,7 +186,13 @@ export default {
     height: 473px;
     overflow: hidden;
 }
+.center {
+  width: 200px;
+}
 .tabfixed {
   position: absolute;
+}
+.nav-bar div {
+  width: 200px;
 }
 </style>

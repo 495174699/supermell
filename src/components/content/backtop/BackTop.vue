@@ -16,5 +16,6 @@ export default {
         transform: scale(.5);
         bottom: 20px;
         right: -15px;
+        z-index: 999;
     } 
 </style>

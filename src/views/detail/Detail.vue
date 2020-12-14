@@ -1,7 +1,8 @@
 <template>
  <div id="detail">
-   <detail-item class="fix" @titleClick="titleClick"></detail-item>
-  <srcoll id="detali-srcoll" ref="scroll">
+  <detail-item class="fix" ref="navbar" @titleClick="titleClick" :count="count"></detail-item>
+
+  <srcoll id="detali-srcoll" ref="scroll"  @scroll='navscroll' :probe-type="3">
   <detail-swiper :topimages='topimages' class="detail-swiper"> </detail-swiper>
   <detail-base-info :all='all'></detail-base-info>
   <logos :logodata='logodata'></logos>
@@ -12,6 +13,8 @@
   <goods-list ref="list" :goods='recommends'> 
   </goods-list>
 </srcoll> 
+ <back-top @click.native='topclick' ref="oo" v-show="isshow"></back-top>
+<detial-nav-bar @addcart="addcart"></detial-nav-bar>
 </div>
 </template>
 
@@ -27,6 +30,8 @@ import DetailItemParams from './childcomponents/DetailItemParams'
 import DetailPingLun from './childcomponents/DetailPingLun'
 import Show from './childcomponents/Show.vue'
 import GoodsList from '../../components/content/goods/GoodsList'
+import DetialNavBar from './childcomponents/DetialNavBar'
+import BackTop from '../../components/content/backtop/BackTop.vue'
 export default {  
     name:'detail',
     data() {
@@ -39,25 +44,63 @@ export default {
          rate:{},
          detailInfo:{},
          recommends:[],
-         themeTopYs:[]
+         themeTopYs:[],
+        count:0,
+        isshow:false
       }
     },
     methods:{
      titleClick(index) {
-       console.log(index);
-       this.$refs.scroll.scrollto(0,-this.themeTopYs[index],1000)
-     }
+       this.$refs.scroll.scrollto(0,-this.themeTopYs[index],200)
+     },
+     navscroll(op) {
+     
+      if(-op.y<=this.themeTopYs[1]) {
+          this.count = 0
+          this.$refs.navbar.count = this.count
+      }
+       if(-op.y>this.themeTopYs[1]-20 && -op.y <=this.themeTopYs[2]){
+        this.count = 1
+         this.$refs.navbar.count = this.count
+       }
+       if(-op.y>this.themeTopYs[2]-20 &&　-op.y <=this.themeTopYs[3]) {
+        this.count = 2
+         this.$refs.navbar.count = this.count
+       }
+       if(-op.y>this.themeTopYs[3]-20) {
+        this.count = 3
+         this.$refs.navbar.count = this.count
+       }
+      if( - op.y > 1000) {
+       this.isshow = true
+      }else {
+        this.isshow = false
+      }
+     },
+    addcart() {
+    console.log(11);
+    const product = {}
+    product.image = this.topimages[0]
+    product.title = this.all.title
+    product.desc = this.all.desc
+    product.price = this.all.price
+    product.iid = this.iid
+    this.$store.dispatch('addCart',product)
+  },
+    topclick() {
+     this.$refs.scroll.scrollto(0,0)
+    },
     },
     updated() {
       this.themeTopYs = []
       this.themeTopYs.push(0)
-      console.log(this.$refs.params.$el.offsetTop);
+      // console.log(this.$refs.params.$el.offsetTop);
       this.themeTopYs.push(this.$refs.params.$el.offsetTop)
       this.themeTopYs.push(this.$refs.pinglun.$el.offsetTop)
       this.themeTopYs.push(this.$refs.list.$el.offsetTop)
     },
     mounted() {
-     
+      
     },
     components: {
       DetailItem,
@@ -68,13 +111,15 @@ export default {
       DetailItemParams,
       DetailPingLun,
       Show,
-      GoodsList
+      GoodsList,
+      DetialNavBar,
+      BackTop,
     },
    created() {
-    console.log(333333);
+    // console.log(333333);
     //获取iid
      this.iid =  this.$route.params.iid
-      // 请求详情数据
+    // 请求详情数据
      getHomeMultidata(this.iid).then(res => {
       console.log(res);
       this.topimages = res.data.result.itemInfo.topImages
@@ -90,6 +135,14 @@ export default {
         console.log(res);
         this.recommends = res.data.data.list
       })
+    //    this.$nextTick( () => {
+    //     this.themeTopYs = []
+    //   this.themeTopYs.push(0)
+    //   // console.log(this.$refs.params.$el.offsetTop);
+    //   this.themeTopYs.push(this.$refs.params.$el.offsetTop)
+    //   this.themeTopYs.push(this.$refs.pinglun.$el.offsetTop)
+    //   this.themeTopYs.push(this.$refs.list.$el.offsetTop)
+    //  })
     }
 }
 </script>
@@ -101,7 +154,7 @@ export default {
 #detail {
   /* height: 100vh; */
   position: relative;
-  z-index: 99;
+  z-index: 10;
   background-color: #fff;
   padding-top: 44px;
 }
@@ -111,7 +164,7 @@ export default {
   height: 100vh;
 }
 .fix {
-  top: 0;
+  top: -1px;
   left: 0;
   right: 0;
   position: fixed;
