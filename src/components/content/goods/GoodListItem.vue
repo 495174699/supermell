@@ -51,7 +51,7 @@ export default {
             // this.$router.push('/detail/'+this.goodsitem.iid)
             // this.$router.push(this.showa)
             this.showa
-            console.log(11);
+            // console.log(11);
         }
     }
 }

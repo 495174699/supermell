@@ -41,7 +41,7 @@ export default {
         },
     },
     created() {
-        console.log(this.logodata.shopUrl);
+        // console.log(this.logodata.shopUrl);
     }
 }
 </script>

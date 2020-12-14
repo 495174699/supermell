@@ -1,12 +1,16 @@
 <template>
   <div>
-      profile
+     <a href="https://wuyupei.top">吴玉配</a>
   </div>
 </template>
 
 <script>
 export default {
-    name:'profile'
+    name:'profile',
+  
+    methods: {
+   
+    }
 }
 </script>
 

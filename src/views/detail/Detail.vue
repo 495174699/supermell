@@ -1,5 +1,6 @@
 <template>
  <div id="detail">
+   <alent :isShow="isShow" :message="message"></alent>
   <detail-item class="fix" ref="navbar" @titleClick="titleClick" :count="count"></detail-item>
 
   <srcoll id="detali-srcoll" ref="scroll"  @scroll='navscroll' :probe-type="3">
@@ -32,6 +33,7 @@ import Show from './childcomponents/Show.vue'
 import GoodsList from '../../components/content/goods/GoodsList'
 import DetialNavBar from './childcomponents/DetialNavBar'
 import BackTop from '../../components/content/backtop/BackTop.vue'
+import Alent from '../../components/common/alent.vue'
 export default {  
     name:'detail',
     data() {
@@ -46,7 +48,9 @@ export default {
          recommends:[],
          themeTopYs:[],
         count:0,
-        isshow:false
+        isshow:false,
+        isShow:false,
+        message:''
       }
     },
     methods:{
@@ -78,14 +82,21 @@ export default {
       }
      },
     addcart() {
-    console.log(11);
+    // console.log(11);
     const product = {}
     product.image = this.topimages[0]
     product.title = this.all.title
     product.desc = this.all.desc
     product.price = this.all.price
     product.iid = this.iid
-    this.$store.dispatch('addCart',product)
+    this.$store.dispatch('addCart',product).then(res => {
+      this.isShow = true;
+      this.message = res;
+      setTimeout(() => {
+        this.isShow=false;
+        this.message = '';
+      },1000)
+    })
   },
     topclick() {
      this.$refs.scroll.scrollto(0,0)
@@ -114,6 +125,7 @@ export default {
       GoodsList,
       DetialNavBar,
       BackTop,
+        Alent,
     },
    created() {
     // console.log(333333);
@@ -121,18 +133,18 @@ export default {
      this.iid =  this.$route.params.iid
     // 请求详情数据
      getHomeMultidata(this.iid).then(res => {
-      console.log(res);
+      // console.log(res);
       this.topimages = res.data.result.itemInfo.topImages
       this.all = new all(res.data.result.itemInfo,res.data.result.columns,res.data.result.shopInfo.services)
       this.logodata = new logo(res.data.result.shopInfo)
       this.detailInfo = res.data.result.detailInfo
       this.itemParams = res.data.result.itemParams
-      console.log(this.itemParams);
+      // console.log(this.itemParams);
       this.rate = res.data.result.rate
      })
       // 请求推荐数据
       getRecommend().then(res => {
-        console.log(res);
+        // console.log(res);
         this.recommends = res.data.data.list
       })
     //    this.$nextTick( () => {

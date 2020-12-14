@@ -91,7 +91,7 @@ export default {
     },
     activated() {
       this.$refs.srcoll.scrollto(0,this.savey,0)
-      console.log('4444');
+      // console.log('4444');
       this.$refs.srcoll.refresh()
    },
    deactivated() {
@@ -129,7 +129,7 @@ export default {
       getHomeGoods(type,page).then(res => {
       this.goods[type].list.push(...res.data.data.list)
       this.goods[type].page+=1
-      console.log(res);
+      // console.log(res);
       this.$refs.srcoll.finishPullUp()
         })
     },

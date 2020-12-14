@@ -1,7 +1,7 @@
 <template>
   <div class="buttom">
       <div class="left">
-          <input type="checkbox" name="" id="all"><label for="all">全选</label>合计:{{getMoney}}
+          <input type="checkbox" name="" id="all" :checked="isSelect" @click="click"><label for="all">全选</label>合计:{{getMoney}}
       </div>
         <div class="right">
             去结算({{cartLength}})
@@ -15,28 +15,44 @@ export default {
     name:'buttom',
     data() {
         return {
-        allmoney:0
+        isSelects:true
         }
     },
     computed:{
       ...mapGetters([`cartList`, `cartLength`]),
+
      getMoney() {
-        let sum = 0
+        var sum = 0
           for (let item of this.cartList) {
-             item.price =  item.price.substr(1,5) * 1
-              sum = sum + item.price*item.count
-              console.log(2);
+              if(item.isChecked) {
+            sum = sum + item.price.substr(1,4)*item.count
+            //   console.log(2);
+              }  
           }
-          return sum
+          return '$'+sum.toFixed(2)
+      },
+      isSelect() {
+          this.isSelects = !(this.cartList.filter(item => !item.isChecked).length)
+          return !(this.cartList.filter(item => !item.isChecked).length)
       }
+      
   },
   methods:{
-     
+      click() {
+          if(this.isSelects == false) {
+                for (let item of this.cartList) {
+              item.isChecked = true
+          }
+          }
+          else{
+               for (let item of this.cartList) {
+              item.isChecked = false
+          }
+          }
+         
+          
+      }
   },
-//   updated() {
-//     this.allmoney = this.getMoney()
-//      console.log(1100000000000000);
-//   }
 }
 </script>
 
@@ -76,6 +92,7 @@ export default {
     text-align: center;
     line-height: 40px;
     width: 30%;
+    color: #fff;
     height: 100%;
     background-color: red;
 }

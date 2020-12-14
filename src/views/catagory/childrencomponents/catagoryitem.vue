@@ -4,7 +4,8 @@
       <ul>
         <li v-for="item in cartList">
            <span>
-            <input type="checkbox" name="" id="" :checked='item.isChecked'>
+            <!-- <input type="checkbox" name="" id="" :checked='item.isChecked'> -->
+            <input type="checkbox" name="" id="" :checked="item.isChecked" @click="click(item)">
             <img :src="item.image" alt="">
             <p>{{item.title}}</p>
              <p>{{item.desc}}</p>
@@ -26,10 +27,16 @@ export default {
       // isChecked:true
     }
   },
+  methods:{
+    click(item) { 
+     item.isChecked = !item.isChecked
+    }
+  },
   components: { srcoll },
   name:'catagoyitem',
   computed:{
-      ...mapGetters([`cartList`])
+      ...mapGetters([`cartList`]),
+
   }
 }
 </script>
