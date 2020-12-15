@@ -1,5 +1,5 @@
 <template>
-    <div class="pinglun" v-if="Object.keys(rate).length != 0">
+    <div class="pinglun" v-if="Object.keys(rate).length !== 0">
         <div class="head">
             <span>用户评论</span>
             <span>更多</span>
