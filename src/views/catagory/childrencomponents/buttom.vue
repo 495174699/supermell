@@ -3,20 +3,28 @@
       <div class="left">
           <input type="checkbox" name="" id="all" :checked="isSelect" @click="click"><label for="all">全选</label>合计:{{getMoney}}
       </div>
-        <div class="right">
+        <div class="right" @click="allClick">
             去结算({{cartLength}})
         </div>
+         <alent :isShow="isShow" :message="message"></alent>
   </div>
 </template>
 
 <script>
 import {mapGetters} from 'vuex'
+import alent from '../../../components/common/alent'
 export default {
     name:'buttom',
-    data() {
+
+         data() {
         return {
-        isSelects:true
+        isSelects:true,
+        message:'',
+        isShow:false
         }
+    },
+    components:{
+           alent
     },
     computed:{
       ...mapGetters([`cartList`, `cartLength`]),
@@ -40,7 +48,7 @@ export default {
   methods:{
       click() {
           if(this.isSelects == false) {
-                for (let item of this.cartList) {
+            for (let item of this.cartList) {
               item.isChecked = true
           }
           }
@@ -51,6 +59,16 @@ export default {
           }
          
           
+      },
+      allClick() {
+          if(this.cartLength == 0) {
+        this.isShow = true;
+        this.message = '购物车没有商品';
+        setTimeout(() => {
+        this.isShow=false;
+        this.message = '';
+      },1000)
+          }
       }
   },
 }

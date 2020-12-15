@@ -67,7 +67,8 @@ export default {
       isshow:false,
       tabcontrol:0,
       istabshow:false,
-      savey:0
+      savey:0,
+
     }
   },
  
@@ -90,6 +91,7 @@ export default {
       this.savey = 1000
     },
     activated() {
+     
       this.$refs.srcoll.scrollto(0,this.savey,0)
       // console.log('4444');
       this.$refs.srcoll.refresh()

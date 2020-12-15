@@ -29,7 +29,7 @@ export default {
 <style>
  .goods {
      display: flex;
-     /* justify-content: center; */
+    
      flex-wrap: wrap;
      justify-content: space-around;
  }
